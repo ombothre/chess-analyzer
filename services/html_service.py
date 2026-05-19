@@ -108,6 +108,7 @@ def build_analysis_html(analysis: dict) -> str:
         max-width: 1280px;
         margin: 0 auto;
         padding: 10px 12px 80px;
+        overflow-x: hidden;
     }}
 
     .hero {{
@@ -321,6 +322,7 @@ def build_analysis_html(analysis: dict) -> str:
 
     .board-frame {{
         max-width: 500px;
+        width: 100%;
         padding: 14px;
         border-radius: 24px;
         background:
@@ -416,23 +418,113 @@ def build_analysis_html(analysis: dict) -> str:
 
     @media (max-width: 900px) {{
         .analysis-root {{
-            padding: 8px 8px 48px;
+            padding: 6px 6px 44px;
         }}
 
         .hero {{
-            padding: 28px 24px 36px;
+            padding: 24px 20px 32px;
+            border-radius: 22px;
+            margin-bottom: 16px;
         }}
 
         .hero h1 {{
-            font-size: 30px;
+            font-size: 28px;
+        }}
+
+        .hero-grid {{
+            display: grid;
+            gap: 7px;
+        }}
+
+        .summary {{
+            padding: 18px 16px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+        }}
+
+        .summary h2 {{
+            font-size: 21px;
+        }}
+
+        .summary p {{
+            font-size: 14px;
+            line-height: 1.55;
+        }}
+
+        .legend {{
+            gap: 10px;
+            padding: 12px;
         }}
 
         .card-body {{
             grid-template-columns: 1fr;
+            gap: 18px;
+        }}
+
+        .analysis-card {{
+            padding: 18px 14px;
+            border-radius: 22px;
+            margin-bottom: 18px;
+            border-left-width: 7px;
+        }}
+
+        .card-header {{
+            gap: 12px;
+            margin-bottom: 14px;
+        }}
+
+        .card-header h2 {{
+            font-size: 23px;
+        }}
+
+        .badge {{
+            padding: 7px 11px;
+            font-size: 13px;
         }}
 
         .board-frame {{
             max-width: 100%;
+            padding: 8px;
+            border-radius: 18px;
+        }}
+
+        .board-wrap {{
+            border-radius: 12px;
+        }}
+
+        th, td {{
+            display: block;
+            width: 100%;
+            padding: 10px 12px;
+        }}
+
+        th {{
+            border-bottom: 0;
+        }}
+
+        td {{
+            padding-top: 0;
+        }}
+
+        .explanation {{
+            padding: 14px;
+            border-radius: 15px;
+        }}
+
+        .explanation h3 {{
+            font-size: 17px;
+        }}
+
+        .explanation p {{
+            font-size: 14px;
+            line-height: 1.55;
+        }}
+    }}
+
+    @media (min-width: 901px) and (max-width: 1180px) {{
+        .card-body {{
+            grid-template-columns: minmax(360px, 460px) 1fr;
+            gap: 24px;
         }}
     }}
 </style>

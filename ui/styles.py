@@ -562,6 +562,23 @@ def inject_app_css() -> None:
                 align-items: stretch;
                 gap: 8px;
                 min-height: 52px;
+                flex-wrap: nowrap !important;
+                flex-direction: row !important;
+            }
+
+            .st-key-depth_control [data-testid="column"] {
+                min-width: 0 !important;
+            }
+
+            .st-key-depth_control [data-testid="column"]:nth-child(1),
+            .st-key-depth_control [data-testid="column"]:nth-child(3) {
+                flex: 0 0 64px !important;
+                width: 64px !important;
+            }
+
+            .st-key-depth_control [data-testid="column"]:nth-child(2) {
+                flex: 1 1 auto !important;
+                width: auto !important;
             }
 
             .depth-value {
@@ -645,6 +662,7 @@ def inject_app_css() -> None:
             iframe {
                 border-radius: 28px;
                 box-shadow: 0 26px 64px var(--shadow);
+                width: 100%;
             }
 
             @keyframes board-sheen {
@@ -669,18 +687,35 @@ def inject_app_css() -> None:
 
             @media (max-width: 900px) {
                 .block-container {
-                    padding: 18px 14px 44px;
+                    padding: 12px 10px 38px;
                 }
 
                 .app-title {
                     display: block;
                     min-height: auto;
-                    padding: 32px 24px 40px;
-                    border-radius: 24px;
+                    padding: 26px 20px 34px;
+                    margin-bottom: 18px;
+                    border-radius: 22px;
                 }
 
                 .app-title h1 {
-                    font-size: 36px;
+                    font-size: 31px;
+                    line-height: 1.08;
+                }
+
+                .app-title p {
+                    font-size: 15px;
+                    line-height: 1.5;
+                }
+
+                .hero-actions {
+                    gap: 8px;
+                    margin-top: 18px;
+                }
+
+                .hero-actions span {
+                    min-height: 30px;
+                    font-size: 12px;
                 }
 
                 .hero-board {
@@ -688,24 +723,151 @@ def inject_app_css() -> None:
                 }
 
                 .st-key-pgn_input textarea {
-                    min-height: 420px !important;
+                    min-height: 380px !important;
+                    font-size: 14px !important;
+                    line-height: 1.55 !important;
+                    padding: 18px 18px !important;
                 }
 
                 .st-key-study_setup {
                     min-height: auto;
+                    padding: 18px;
+                    border-radius: 22px;
                 }
 
                 .st-key-analysis_input_panel {
-                    padding: 22px 18px;
+                    padding: 20px 14px;
+                    margin-bottom: 24px;
                     border-radius: 24px;
                 }
 
                 .input-head {
                     display: block;
+                    margin-bottom: 18px;
+                }
+
+                .input-card-title {
+                    font-size: 23px;
+                }
+
+                .input-card-subtitle {
+                    font-size: 14px;
                 }
 
                 .input-chip {
-                    margin-top: 14px;
+                    margin-top: 12px;
+                    min-height: 34px;
+                    font-size: 13px;
+                }
+
+                .setup-card-head {
+                    margin-bottom: 12px;
+                }
+
+                .setup-card-head h2 {
+                    font-size: 20px;
+                }
+
+                .setup-mark {
+                    width: 42px;
+                    height: 42px;
+                    border-radius: 14px;
+                    font-size: 25px;
+                }
+
+                .side-state {
+                    grid-template-columns: 40px 1fr;
+                    margin-bottom: 14px;
+                    padding: 8px 10px;
+                }
+
+                .side-state span {
+                    width: 40px;
+                    height: 40px;
+                }
+
+                .side-state p {
+                    font-size: 12px;
+                }
+
+                .setup-board {
+                    width: min(100%, 380px);
+                    margin-left: auto;
+                    margin-right: auto;
+                    border-width: 7px;
+                    border-radius: 16px;
+                }
+
+                .setup-board span {
+                    font-size: clamp(17px, 5.4vw, 24px);
+                }
+
+                .st-key-depth_control {
+                    margin-bottom: 18px;
+                }
+
+                .st-key-depth_control [data-testid="stHorizontalBlock"] {
+                    display: flex !important;
+                    flex-direction: row !important;
+                    flex-wrap: nowrap !important;
+                    gap: 8px !important;
+                }
+
+                .st-key-depth_control [data-testid="column"]:nth-child(1),
+                .st-key-depth_control [data-testid="column"]:nth-child(3) {
+                    flex: 0 0 56px !important;
+                    width: 56px !important;
+                }
+
+                .st-key-depth_control [data-testid="column"]:nth-child(2) {
+                    flex: 1 1 auto !important;
+                    width: auto !important;
+                }
+
+                .depth-value,
+                .st-key-depth_decrease button,
+                .st-key-depth_increase button,
+                .st-key-analyze_button button {
+                    height: 50px !important;
+                    min-height: 50px !important;
+                }
+
+                .st-key-analyze_button button {
+                    margin-top: 2px !important;
+                }
+
+                iframe {
+                    border-radius: 18px;
+                    box-shadow: 0 16px 38px var(--shadow);
+                }
+            }
+
+            @media (min-width: 901px) and (max-width: 1280px) {
+                .block-container {
+                    padding-left: 26px;
+                    padding-right: 26px;
+                }
+
+                .app-title {
+                    grid-template-columns: minmax(0, 1fr) 260px;
+                    gap: 32px;
+                    padding: 42px 44px;
+                }
+
+                .app-title h1 {
+                    font-size: 44px;
+                }
+
+                .hero-board {
+                    width: 260px;
+                }
+
+                .st-key-analysis_input_panel {
+                    padding: 28px;
+                }
+
+                .setup-board span {
+                    font-size: 20px;
                 }
             }
         </style>
