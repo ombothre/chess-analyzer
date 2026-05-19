@@ -6,7 +6,6 @@ from config import (
     DEFAULT_ENGINE_DEPTH,
     MAX_ENGINE_DEPTH,
     MIN_ENGINE_DEPTH,
-    SAMPLE_FEN,
     SAMPLE_PGN,
     STOCKFISH_PATH,
 )
@@ -51,6 +50,8 @@ BOARD_PIECES = {
     62: "♘",
     63: "♖",
 }
+
+SAMPLE_FEN = "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 3"
 
 
 def render_static_board(class_name: str, perspective: str = "White") -> str:
