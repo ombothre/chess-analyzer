@@ -344,7 +344,8 @@ def inject_app_css() -> None:
 
             .st-key-pgn_input [data-baseweb="textarea"],
             .st-key-pgn_input textarea,
-            .depth-value {
+            .st-key-depth_input [data-baseweb="input"],
+            .st-key-depth_input input {
                 color-scheme: light !important;
                 background-color: #fffdf8 !important;
                 color: var(--ink) !important;
@@ -503,12 +504,12 @@ def inject_app_css() -> None:
             }
 
             .st-key-perspective_control,
-            .st-key-depth_control {
+            .st-key-depth_input {
                 margin-bottom: 16px;
             }
 
             .st-key-perspective_control [data-testid="stWidgetLabel"],
-            .st-key-depth_control [data-testid="stWidgetLabel"] {
+            .st-key-depth_input [data-testid="stWidgetLabel"] {
                 margin-bottom: 8px;
             }
 
@@ -551,79 +552,47 @@ def inject_app_css() -> None:
                 box-shadow: 0 8px 18px rgba(47, 125, 70, 0.24) !important;
             }
 
-            .st-key-depth_control {
-                padding: 0;
-            }
-
-            .depth-label {
-                margin-bottom: 9px !important;
-            }
-
-            .st-key-depth_control [data-testid="stHorizontalBlock"] {
-                display: grid !important;
-                grid-template-columns: 64px minmax(0, 1fr) 64px !important;
-                align-items: stretch;
-                gap: 8px;
-                min-height: 52px;
-                width: 100% !important;
-                max-width: 100% !important;
-            }
-
-            .st-key-depth_control [data-testid="column"] {
-                width: auto !important;
-                min-width: 0 !important;
-                max-width: none !important;
-                flex: unset !important;
-            }
-
-            .depth-value {
-                display: flex;
-                align-items: center;
-                height: 52px;
-                padding: 0 18px;
-                border: 1px solid #cbb79b;
-                border-radius: 14px;
-                font-size: 18px;
-                font-weight: 950;
-                box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62);
-                transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
-            }
-
-            .st-key-depth_control:hover .depth-value {
-                border-color: var(--green);
-                box-shadow: 0 0 0 4px rgba(47, 125, 70, 0.10);
-            }
-
-            .st-key-depth_decrease button,
-            .st-key-depth_increase button {
-                height: 52px !important;
+            .st-key-depth_input [data-baseweb="input"] {
                 min-height: 52px !important;
+                border: 1px solid #cbb79b !important;
+                border-radius: 15px !important;
+                overflow: hidden !important;
+                box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62) !important;
+                transition: border-color 150ms ease, box-shadow 150ms ease !important;
+            }
+
+            .st-key-depth_input [data-baseweb="input"]:focus-within,
+            .st-key-depth_input [data-baseweb="input"]:hover {
+                border-color: var(--green) !important;
+                box-shadow: 0 0 0 4px rgba(47, 125, 70, 0.12) !important;
+            }
+
+            .st-key-depth_input input {
+                height: 52px !important;
                 border: 0 !important;
-                border-radius: 14px !important;
+                font-size: 18px !important;
+                font-weight: 950 !important;
+                box-shadow: none !important;
+            }
+
+            .st-key-depth_input button {
+                height: 42px !important;
+                min-height: 42px !important;
+                width: 42px !important;
+                margin-top: 5px !important;
+                margin-right: 5px !important;
+                border: 0 !important;
+                border-radius: 12px !important;
                 background: #2b1b12 !important;
                 color: #fffaf1 !important;
                 -webkit-text-fill-color: #fffaf1 !important;
-                font-size: 22px !important;
-                font-weight: 950 !important;
-                line-height: 1 !important;
-                padding: 0 !important;
-                box-shadow: 0 8px 18px rgba(43, 27, 18, 0.15) !important;
+                box-shadow: none !important;
                 transition: transform 120ms ease, background 120ms ease !important;
             }
 
-            .st-key-depth_increase button {
-                background: var(--green-dark) !important;
-            }
-
-            .st-key-depth_decrease button:hover,
-            .st-key-depth_increase button:hover {
+            .st-key-depth_input button:hover {
                 background: var(--green-dark) !important;
                 transform: translateY(-1px);
-            }
-
-            .st-key-depth_decrease button:active,
-            .st-key-depth_increase button:active {
-                transform: translateY(1px) scale(0.98);
             }
 
             .st-key-analyze_button button {
@@ -811,31 +780,23 @@ def inject_app_css() -> None:
                     font-size: clamp(17px, 5.4vw, 24px);
                 }
 
-                .st-key-depth_control {
+                .st-key-depth_input {
                     margin-bottom: 18px;
                 }
 
-                .st-key-depth_control [data-testid="stHorizontalBlock"] {
-                    display: grid !important;
-                    grid-template-columns: 54px minmax(0, 1fr) 54px !important;
-                    gap: 8px !important;
-                    width: 100% !important;
-                    max-width: 100% !important;
-                }
-
-                .st-key-depth_control [data-testid="column"] {
-                    width: auto !important;
-                    min-width: 0 !important;
-                    max-width: none !important;
-                    flex: unset !important;
-                }
-
-                .depth-value,
-                .st-key-depth_decrease button,
-                .st-key-depth_increase button,
+                .st-key-depth_input [data-baseweb="input"],
+                .st-key-depth_input input,
                 .st-key-analyze_button button {
                     height: 50px !important;
                     min-height: 50px !important;
+                }
+
+                .st-key-depth_input button {
+                    height: 40px !important;
+                    min-height: 40px !important;
+                    width: 40px !important;
+                    margin-top: 5px !important;
+                    margin-right: 5px !important;
                 }
 
                 .st-key-analyze_button button {

@@ -105,30 +105,6 @@ def render_header() -> None:
     )
 
 
-def render_depth_control() -> int:
-    if "engine_depth" not in st.session_state:
-        st.session_state.engine_depth = DEFAULT_ENGINE_DEPTH
-
-    st.markdown('<p class="field-label depth-label">Engine depth</p>', unsafe_allow_html=True)
-    minus_col, value_col, plus_col = st.columns([0.22, 0.56, 0.22], gap="small")
-
-    with minus_col:
-        if st.button("−", key="depth_decrease", use_container_width=True):
-            st.session_state.engine_depth = max(MIN_ENGINE_DEPTH, st.session_state.engine_depth - 1)
-
-    with value_col:
-        st.markdown(
-            f'<div class="depth-value" aria-live="polite">{st.session_state.engine_depth}</div>',
-            unsafe_allow_html=True,
-        )
-
-    with plus_col:
-        if st.button("+", key="depth_increase", use_container_width=True):
-            st.session_state.engine_depth = min(MAX_ENGINE_DEPTH, st.session_state.engine_depth + 1)
-
-    return int(st.session_state.engine_depth)
-
-
 def render_input_panel() -> tuple[str, int, str, bool]:
     with st.container(key="analysis_input_panel"):
         st.markdown(
@@ -202,8 +178,14 @@ def render_input_panel() -> tuple[str, int, str, bool]:
                     unsafe_allow_html=True,
                 )
 
-                with st.container(key="depth_control"):
-                    depth = render_depth_control()
+                depth = st.number_input(
+                    "Engine depth",
+                    min_value=MIN_ENGINE_DEPTH,
+                    max_value=MAX_ENGINE_DEPTH,
+                    value=DEFAULT_ENGINE_DEPTH,
+                    step=1,
+                    key="depth_input",
+                )
 
                 analyze_clicked = st.button("Analyze game", use_container_width=True, key="analyze_button")
 
@@ -219,7 +201,7 @@ def render_analysis(pgn_text: str, depth: int, perspective: str) -> None:
         analysis = analyze_pgn(pgn_text, depth, perspective)
         html = build_analysis_html(analysis)
 
-    report_height = min(720 + (len(analysis["moves"]) * 610), 14000)
+    report_height = min(760 + (len(analysis["moves"]) * 850), 22000)
 
     components.html(
         html,
