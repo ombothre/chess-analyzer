@@ -219,7 +219,7 @@ def render_analysis(pgn_text: str, depth: int, perspective: str) -> None:
         analysis = analyze_pgn(pgn_text, depth, perspective)
         html = build_analysis_html(analysis)
 
-    report_height = min(760 + (len(analysis["moves"]) * 1080), 36000)
+    report_height = min(720 + (len(analysis["moves"]) * 610), 14000)
 
     components.html(
         html,

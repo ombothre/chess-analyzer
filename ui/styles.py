@@ -25,6 +25,7 @@ def inject_app_css() -> None:
             body,
             .stApp {
                 color-scheme: light !important;
+                overflow-x: hidden;
             }
 
             body,
@@ -559,26 +560,20 @@ def inject_app_css() -> None:
             }
 
             .st-key-depth_control [data-testid="stHorizontalBlock"] {
+                display: grid !important;
+                grid-template-columns: 64px minmax(0, 1fr) 64px !important;
                 align-items: stretch;
                 gap: 8px;
                 min-height: 52px;
-                flex-wrap: nowrap !important;
-                flex-direction: row !important;
+                width: 100% !important;
+                max-width: 100% !important;
             }
 
             .st-key-depth_control [data-testid="column"] {
-                min-width: 0 !important;
-            }
-
-            .st-key-depth_control [data-testid="column"]:nth-child(1),
-            .st-key-depth_control [data-testid="column"]:nth-child(3) {
-                flex: 0 0 64px !important;
-                width: 64px !important;
-            }
-
-            .st-key-depth_control [data-testid="column"]:nth-child(2) {
-                flex: 1 1 auto !important;
                 width: auto !important;
+                min-width: 0 !important;
+                max-width: none !important;
+                flex: unset !important;
             }
 
             .depth-value {
@@ -739,6 +734,20 @@ def inject_app_css() -> None:
                     padding: 20px 14px;
                     margin-bottom: 24px;
                     border-radius: 24px;
+                    overflow: hidden;
+                    max-width: 100%;
+                }
+
+                .st-key-analysis_input_panel [data-testid="stHorizontalBlock"]:has(.st-key-pgn_input) {
+                    display: block !important;
+                    width: 100% !important;
+                }
+
+                .st-key-analysis_input_panel [data-testid="stHorizontalBlock"]:has(.st-key-pgn_input) > [data-testid="column"] {
+                    width: 100% !important;
+                    min-width: 0 !important;
+                    max-width: 100% !important;
+                    margin-bottom: 18px;
                 }
 
                 .input-head {
@@ -807,21 +816,18 @@ def inject_app_css() -> None:
                 }
 
                 .st-key-depth_control [data-testid="stHorizontalBlock"] {
-                    display: flex !important;
-                    flex-direction: row !important;
-                    flex-wrap: nowrap !important;
+                    display: grid !important;
+                    grid-template-columns: 54px minmax(0, 1fr) 54px !important;
                     gap: 8px !important;
+                    width: 100% !important;
+                    max-width: 100% !important;
                 }
 
-                .st-key-depth_control [data-testid="column"]:nth-child(1),
-                .st-key-depth_control [data-testid="column"]:nth-child(3) {
-                    flex: 0 0 56px !important;
-                    width: 56px !important;
-                }
-
-                .st-key-depth_control [data-testid="column"]:nth-child(2) {
-                    flex: 1 1 auto !important;
+                .st-key-depth_control [data-testid="column"] {
                     width: auto !important;
+                    min-width: 0 !important;
+                    max-width: none !important;
+                    flex: unset !important;
                 }
 
                 .depth-value,
