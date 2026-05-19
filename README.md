@@ -1,14 +1,16 @@
-# Chess Coach PGN Analyzer
+# Chess Coach PGN / FEN Analyzer
 
-A Streamlit app for analyzing chess games with Stockfish. Paste a PGN or move list, choose White or Black perspective, and generate a themed move-by-move report with board diagrams, engine-best moves, evaluations, and coach-style explanations.
+A Streamlit app for analyzing chess games and positions with Stockfish. Paste a PGN or move list for a move-by-move report, or paste a FEN to analyze only the current side to move. Choose White or Black perspective and generate a themed report with board diagrams, engine-best moves, evaluations, and coach-style explanations.
 
 ## Features
 
 - Paste full PGN or simple move lists.
+- Paste a FEN position for single-position analysis.
 - Analyze positions with Stockfish.
 - Choose report perspective: White or Black.
 - View move quality labels: OK, Inaccuracy, Mistake, Blunder.
 - See played move and engine-best move arrows on each board.
+- For FEN input, see only the current-position recommendation.
 - Generate a styled chess-themed analysis report.
 - Streamlit UI with custom wood/green chess styling.
 

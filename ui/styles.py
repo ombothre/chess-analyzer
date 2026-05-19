@@ -344,6 +344,8 @@ def inject_app_css() -> None:
 
             .st-key-pgn_input [data-baseweb="textarea"],
             .st-key-pgn_input textarea,
+            .st-key-fen_input [data-baseweb="textarea"],
+            .st-key-fen_input textarea,
             .st-key-depth_input [data-baseweb="input"],
             .st-key-depth_input input {
                 color-scheme: light !important;
@@ -352,7 +354,8 @@ def inject_app_css() -> None:
                 -webkit-text-fill-color: var(--ink) !important;
             }
 
-            .st-key-pgn_input [data-baseweb="textarea"] {
+            .st-key-pgn_input [data-baseweb="textarea"],
+            .st-key-fen_input [data-baseweb="textarea"] {
                 border: 1px solid #cbb79b !important;
                 border-radius: 22px !important;
                 box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.58) !important;
@@ -360,13 +363,15 @@ def inject_app_css() -> None:
                 transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease !important;
             }
 
-            .st-key-pgn_input [data-baseweb="textarea"]:focus-within {
+            .st-key-pgn_input [data-baseweb="textarea"]:focus-within,
+            .st-key-fen_input [data-baseweb="textarea"]:focus-within {
                 border-color: var(--green) !important;
                 box-shadow: 0 0 0 4px rgba(47, 125, 70, 0.14) !important;
                 transform: translateY(-1px);
             }
 
-            .st-key-pgn_input textarea {
+            .st-key-pgn_input textarea,
+            .st-key-fen_input textarea {
                 min-height: 640px !important;
                 padding: 22px 24px !important;
                 border: 0 !important;
@@ -503,16 +508,19 @@ def inject_app_css() -> None:
                 font-size: 24px;
             }
 
+            .st-key-input_mode_control,
             .st-key-perspective_control,
             .st-key-depth_input {
                 margin-bottom: 16px;
             }
 
+            .st-key-input_mode_control [data-testid="stWidgetLabel"],
             .st-key-perspective_control [data-testid="stWidgetLabel"],
             .st-key-depth_input [data-testid="stWidgetLabel"] {
                 margin-bottom: 8px;
             }
 
+            .st-key-input_mode_control [data-testid="stSegmentedControl"],
             .st-key-perspective_control [data-testid="stSegmentedControl"] {
                 width: 100%;
                 min-height: 48px;
@@ -522,6 +530,7 @@ def inject_app_css() -> None:
                 background: #fffdf8;
             }
 
+            .st-key-input_mode_control [data-testid="stSegmentedControl"] button,
             .st-key-perspective_control [data-testid="stSegmentedControl"] button {
                 min-height: 38px !important;
                 border: 0 !important;
@@ -534,16 +543,20 @@ def inject_app_css() -> None:
                 transition: background 150ms ease, color 150ms ease, transform 150ms ease !important;
             }
 
+            .st-key-input_mode_control [data-testid="stSegmentedControl"] button:hover,
             .st-key-perspective_control [data-testid="stSegmentedControl"] button:hover {
                 transform: translateY(-1px);
             }
 
+            .st-key-input_mode_control [data-testid="stSegmentedControl"] button p,
             .st-key-perspective_control [data-testid="stSegmentedControl"] button p {
                 color: inherit !important;
                 -webkit-text-fill-color: inherit !important;
                 font-weight: 950 !important;
             }
 
+            .st-key-input_mode_control [data-testid="stSegmentedControl"] button[aria-pressed="true"],
+            .st-key-input_mode_control [data-testid="stSegmentedControl"] button[aria-selected="true"],
             .st-key-perspective_control [data-testid="stSegmentedControl"] button[aria-pressed="true"],
             .st-key-perspective_control [data-testid="stSegmentedControl"] button[aria-selected="true"] {
                 background: var(--green) !important;
@@ -695,7 +708,8 @@ def inject_app_css() -> None:
                     display: none;
                 }
 
-                .st-key-pgn_input textarea {
+                .st-key-pgn_input textarea,
+                .st-key-fen_input textarea {
                     min-height: 380px !important;
                     font-size: 14px !important;
                     line-height: 1.55 !important;
@@ -716,12 +730,14 @@ def inject_app_css() -> None:
                     max-width: 100%;
                 }
 
-                .st-key-analysis_input_panel [data-testid="stHorizontalBlock"]:has(.st-key-pgn_input) {
+                .st-key-analysis_input_panel [data-testid="stHorizontalBlock"]:has(.st-key-pgn_input),
+                .st-key-analysis_input_panel [data-testid="stHorizontalBlock"]:has(.st-key-fen_input) {
                     display: block !important;
                     width: 100% !important;
                 }
 
-                .st-key-analysis_input_panel [data-testid="stHorizontalBlock"]:has(.st-key-pgn_input) > [data-testid="column"] {
+                .st-key-analysis_input_panel [data-testid="stHorizontalBlock"]:has(.st-key-pgn_input) > [data-testid="column"],
+                .st-key-analysis_input_panel [data-testid="stHorizontalBlock"]:has(.st-key-fen_input) > [data-testid="column"] {
                     width: 100% !important;
                     min-width: 0 !important;
                     max-width: 100% !important;

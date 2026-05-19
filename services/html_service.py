@@ -8,30 +8,69 @@ def build_analysis_html(analysis: dict) -> str:
     moves = analysis["moves"]
     perspective = game.get("perspective", "White")
     opponent = "Black" if perspective == "White" else "White"
+    is_fen = game.get("input_type") == "fen"
 
     cards_html = ""
+    report_title = "FEN position analysis" if is_fen else f"{game['white']} vs {game['black']}"
+    hero_meta = (
+        f"""
+            <p><strong>Side to move:</strong> {escape(game.get("side_to_move", "Unknown"))}</p>
+            <p><strong>Input:</strong> FEN position</p>
+            <p><strong>Perspective:</strong> {escape(perspective)}</p>
+        """
+        if is_fen
+        else f"""
+            <p><strong>Event:</strong> {escape(game["event"])}</p>
+            <p><strong>Result:</strong> {escape(game["result"])}</p>
+            <p><strong>Perspective:</strong> {escape(perspective)}</p>
+        """
+    )
+    summary_copy = (
+        """
+            This report analyzes only the current FEN position. The green arrow is
+            Stockfish's preferred move for the side to move.
+        """
+        if is_fen
+        else """
+            Each card shows the board after the played move. The blue arrow is the actual move.
+            The green arrow is Stockfish's preferred move from the same position.
+        """
+    )
+    legend_html = (
+        '<p><span class="line green"></span>Green arrow = engine best move</p>'
+        if is_fen
+        else """
+            <p><span class="line blue"></span>Blue arrow = played move</p>
+            <p><span class="line green"></span>Green arrow = engine best move</p>
+        """
+    )
 
     for move in moves:
-        cards_html += f"""
-        <article class="analysis-card {move["label_class"]}">
-            <div class="card-header">
-                <div>
-                    <p class="move-kicker">Move {move["index"]}</p>
-                    <h2>{escape(move["move_title"])}</h2>
-                    <p class="subtle">Engine best: <strong>{escape(move["best_san"])}</strong></p>
-                </div>
-                <span class="badge {move["label_class"]}">{escape(move["label"])}</span>
-            </div>
+        move_kicker = "FEN position" if is_fen else f"Move {move['index']}"
+        summary_label = f"Best for {game.get('side_to_move', 'side to move')}" if is_fen else "Engine best"
+        details_summary = "Input FEN" if is_fen else "FEN after move"
 
-            <div class="card-body">
-                <div class="board-frame">
-                    <div class="board-wrap">
-                        {move["board_svg"]}
-                    </div>
-                </div>
-
-                <div class="details">
-                    <table>
+        if is_fen:
+            table_html = f"""
+                        <tr>
+                            <th>Side to move</th>
+                            <td><code>{escape(move["played_san"])}</code></td>
+                        </tr>
+                        <tr>
+                            <th>Engine best</th>
+                            <td><code>{escape(move["best_san"])}</code></td>
+                        </tr>
+                        <tr>
+                            <th>Current eval</th>
+                            <td>{escape(move["eval_before"])}</td>
+                        </tr>
+                        <tr>
+                            <th>After best</th>
+                            <td>{escape(move["eval_after"])}</td>
+                        </tr>
+            """
+        else:
+            table_html = f"""
                         <tr>
                             <th>Played move</th>
                             <td><code>{escape(move["played_san"])}</code></td>
@@ -48,6 +87,29 @@ def build_analysis_html(analysis: dict) -> str:
                             <th>Eval after</th>
                             <td>{escape(move["eval_after"])}</td>
                         </tr>
+            """
+
+        cards_html += f"""
+        <article class="analysis-card {move["label_class"]}">
+            <div class="card-header">
+                <div>
+                    <p class="move-kicker">{escape(move_kicker)}</p>
+                    <h2>{escape(move["move_title"])}</h2>
+                    <p class="subtle">{escape(summary_label)}: <strong>{escape(move["best_san"])}</strong></p>
+                </div>
+                <span class="badge {move["label_class"]}">{escape(move["label"])}</span>
+            </div>
+
+            <div class="card-body">
+                <div class="board-frame">
+                    <div class="board-wrap">
+                        {move["board_svg"]}
+                    </div>
+                </div>
+
+                <div class="details">
+                    <table>
+                        {table_html}
                     </table>
 
                     <div class="explanation">
@@ -56,7 +118,7 @@ def build_analysis_html(analysis: dict) -> str:
                     </div>
 
                     <details>
-                        <summary>FEN after move</summary>
+                        <summary>{escape(details_summary)}</summary>
                         <code class="fen">{escape(move["fen_after"])}</code>
                     </details>
                 </div>
@@ -533,19 +595,16 @@ def build_analysis_html(analysis: dict) -> str:
 <div class="analysis-root">
     <section class="hero">
         <span class="eyebrow">Analysis report</span>
-        <h1>{escape(game["white"])} vs {escape(game["black"])}</h1>
+        <h1>{escape(report_title)}</h1>
         <div class="hero-grid">
-            <p><strong>Event:</strong> {escape(game["event"])}</p>
-            <p><strong>Result:</strong> {escape(game["result"])}</p>
-            <p><strong>Perspective:</strong> {escape(perspective)}</p>
+            {hero_meta}
         </div>
     </section>
 
     <section class="summary">
         <h2>How to read this analysis</h2>
         <p>
-            Each card shows the board after the played move. The blue arrow is the actual move.
-            The green arrow is Stockfish's preferred move from the same position.
+            {summary_copy}
         </p>
         <p>
             Evaluations are from {escape(perspective)}'s perspective.
@@ -553,8 +612,7 @@ def build_analysis_html(analysis: dict) -> str:
             <code>-1.00</code> means {escape(opponent)} is about one pawn better.
         </p>
         <div class="legend">
-            <p><span class="line blue"></span>Blue arrow = played move</p>
-            <p><span class="line green"></span>Green arrow = engine best move</p>
+            {legend_html}
         </div>
     </section>
 

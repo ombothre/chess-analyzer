@@ -151,6 +151,76 @@ def analyze_pgn(pgn_text: str, depth: int, perspective_name: str = "White") -> d
             "black": game.headers.get("Black", "Black"),
             "result": game.headers.get("Result", "*"),
             "perspective": perspective_name,
+            "input_type": "pgn",
         },
         "moves": moves,
+    }
+
+
+def analyze_fen(fen_text: str, depth: int, perspective_name: str = "White") -> dict:
+    try:
+        board = chess.Board(fen_text.strip())
+    except ValueError as exc:
+        raise ValueError("Invalid FEN. Paste a complete legal FEN position.") from exc
+
+    if not board.is_valid():
+        raise ValueError("Invalid FEN. Paste a complete legal FEN position.")
+
+    perspective = chess.BLACK if perspective_name == "Black" else chess.WHITE
+    side_to_move = board.turn
+    side = "White" if side_to_move == chess.WHITE else "Black"
+
+    engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
+
+    try:
+        best_move, current_cp = analyze_position(engine, board, depth)
+        best_san = board.san(best_move) if best_move else None
+
+        board_after_best = board.copy()
+        if best_move:
+            board_after_best.push(best_move)
+            _, after_best_cp = analyze_position(engine, board_after_best, depth)
+        else:
+            after_best_cp = current_cp
+
+    finally:
+        engine.quit()
+
+    best_move_text = best_san or "No legal move"
+
+    return {
+        "game": {
+            "event": "FEN Position",
+            "white": "Current",
+            "black": "Position",
+            "result": "*",
+            "perspective": perspective_name,
+            "input_type": "fen",
+            "side_to_move": side,
+        },
+        "moves": [
+            {
+                "index": 1,
+                "move_title": f"Current position: {side} to move",
+                "played_san": f"{side} to move",
+                "best_san": best_move_text,
+                "label": "Current Position",
+                "label_class": "ok",
+                "eval_before": format_eval(current_cp, perspective),
+                "eval_after": format_eval(after_best_cp, perspective),
+                "fen_after": board.fen(),
+                "board_svg": make_board_svg(
+                    board=board,
+                    played_move=None,
+                    best_move=best_move,
+                    perspective=perspective,
+                ),
+                "explanation": (
+                    f"{side} is to move. Stockfish recommends "
+                    f"<code>{best_move_text}</code> from the current position. "
+                    f"The evaluation is <code>{format_eval(current_cp, perspective)}</code> "
+                    f"from {perspective_name}'s perspective."
+                ),
+            }
+        ],
     }
