@@ -552,8 +552,13 @@ def inject_app_css() -> None:
                 box-shadow: 0 8px 18px rgba(47, 125, 70, 0.24) !important;
             }
 
+            .st-key-depth_input [data-testid="stNumberInput"] {
+                align-items: flex-start !important;
+            }
+
             .st-key-depth_input [data-baseweb="input"] {
                 min-height: 52px !important;
+                height: 52px !important;
                 border: 1px solid #cbb79b !important;
                 border-radius: 15px !important;
                 overflow: hidden !important;
@@ -576,16 +581,20 @@ def inject_app_css() -> None:
             }
 
             .st-key-depth_input button {
-                height: 42px !important;
-                min-height: 42px !important;
-                width: 42px !important;
-                margin-top: 5px !important;
-                margin-right: 5px !important;
+                height: 52px !important;
+                min-height: 52px !important;
+                width: 56px !important;
+                margin-top: 0 !important;
+                margin-right: 0 !important;
+                margin-left: 8px !important;
                 border: 0 !important;
-                border-radius: 12px !important;
+                border-radius: 15px !important;
                 background: #2b1b12 !important;
                 color: #fffaf1 !important;
                 -webkit-text-fill-color: #fffaf1 !important;
+                font-size: 20px !important;
+                font-weight: 950 !important;
+                line-height: 1 !important;
                 box-shadow: none !important;
                 transition: transform 120ms ease, background 120ms ease !important;
             }
@@ -792,11 +801,12 @@ def inject_app_css() -> None:
                 }
 
                 .st-key-depth_input button {
-                    height: 40px !important;
-                    min-height: 40px !important;
-                    width: 40px !important;
-                    margin-top: 5px !important;
-                    margin-right: 5px !important;
+                    height: 50px !important;
+                    min-height: 50px !important;
+                    width: 48px !important;
+                    margin-top: 0 !important;
+                    margin-left: 6px !important;
+                    margin-right: 0 !important;
                 }
 
                 .st-key-analyze_button button {
