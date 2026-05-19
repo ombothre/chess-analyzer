@@ -49,7 +49,9 @@ The app resolves Stockfish with:
 shutil.which("stockfish")
 ```
 
-If your binary is somewhere unusual, update `STOCKFISH_PATH` in `config.py`.
+It also checks common deployment paths such as `/usr/games/stockfish`, which is where Streamlit Cloud commonly installs the apt package.
+
+If your binary is somewhere unusual, set a `STOCKFISH_PATH` environment variable or update `config.py`.
 
 ## Local Setup
 
@@ -135,6 +137,17 @@ app.py
 ```
 
 Streamlit Cloud should install Python dependencies from `requirements.txt` and Stockfish from `packages.txt`.
+
+If you still see a Stockfish error after deployment:
+
+1. Confirm `packages.txt` is committed to GitHub.
+2. Confirm it contains exactly:
+
+```text
+stockfish
+```
+
+3. Reboot the app from Streamlit Cloud's Manage app menu.
 
 ### Render
 

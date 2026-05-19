@@ -1,8 +1,28 @@
 from __future__ import annotations
 
+import os
 import shutil
+from pathlib import Path
 
-STOCKFISH_PATH = shutil.which("stockfish") or "/opt/homebrew/bin/stockfish"
+
+def resolve_stockfish_path() -> str:
+    candidates = [
+        os.environ.get("STOCKFISH_PATH"),
+        shutil.which("stockfish"),
+        "/usr/games/stockfish",
+        "/usr/bin/stockfish",
+        "/usr/local/bin/stockfish",
+        "/opt/homebrew/bin/stockfish",
+    ]
+
+    for candidate in candidates:
+        if candidate and Path(candidate).exists():
+            return candidate
+
+    return "stockfish"
+
+
+STOCKFISH_PATH = resolve_stockfish_path()
 
 DEFAULT_ENGINE_DEPTH = 14
 MIN_ENGINE_DEPTH = 6

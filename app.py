@@ -243,8 +243,10 @@ def main() -> None:
 
         except FileNotFoundError:
             st.error(
-                f"Stockfish not found at `{STOCKFISH_PATH}`. "
-                "Run `which stockfish` and update `STOCKFISH_PATH` in config.py."
+                "Stockfish was not found on this server. "
+                f"Tried `{STOCKFISH_PATH}`. "
+                "For Streamlit Cloud, make sure `packages.txt` contains `stockfish`, "
+                "commit it to GitHub, and reboot the app."
             )
 
         except Exception as exc:
