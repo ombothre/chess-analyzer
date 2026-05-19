@@ -1,0 +1,11 @@
+[project]
+name = "chess-analyzer"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "python-chess>=1.999",
+    "streamlit>=1.57.0",
+    "watchdog>=6.0.0",
+]
